@@ -3,6 +3,8 @@
 Build and install the **official ParrotSec AnonSurf 6 GUI** (Qt6/QML) from
 source on MX Linux / Debian 13 (trixie).
 
+![AnonSurf GUI dashboard](docs/screenshot.png)
+
 AnonSurf routes your whole system through Tor with one click. The GUI gives
 you a dashboard: routing state, Tor service, DNS setup, public IP check,
 new identity, startup toggle and a Tor monitor.
@@ -70,6 +72,31 @@ settings if a session was ever interrupted — it is a no-op otherwise.
 - **RESTART** — restart routing
 - **TOR MONITOR** — opens Nyx (install the `nyx` package first)
 - **Use SafeKill** — close listed apps and clear caches before start/stop
+
+## Install tips
+
+- **Be patient on old CPUs** — the Qt6 GUI compile is the slow part. On a
+  2009 dual-core it takes roughly 10-15 minutes; the Go binaries finish fast.
+- **Don't start it until you mean it.** Installing changes nothing, but
+  pressing START cuts your LAN/WAN/UDP access (see the warning above).
+- **Closing the window does not stop routing.** The GUI docks to the system
+  tray; use STOP ANON SURF (or `anonsurf stop`) to get your network back.
+- **Launch it** from the application menu (**AnonSurf GUI**) or run
+  `anonsurf-gui` in a terminal.
+- **Prefer the terminal?** Every GUI action has a CLI equivalent:
+  `anonsurf start`, `anonsurf stop`, `anonsurf status`, `anonsurf ip`,
+  `anonsurf changeid`, `anonsurf monitor`, `anonsurf boot enable`.
+- **Check it is really working** with VERIFY IP in the GUI, or run
+  `anonsurf ip` and `anonsurf status`.
+- **SafeKill is optional and destructive** — it closes listed applications
+  and wipes their caches/history. Leave it off unless you want that.
+- **Troubleshooting** — `anonsurf status` shows routing/Tor/DNS state and
+  `journalctl -u anonsurfd` shows the service log. If the network ever gets
+  stuck, reboot: `anonsurf-recovery.service` restores the previous settings.
+- **Prebuilt binaries** (no compiling) are attached to the GitHub Releases
+  page for MX/Debian trixie amd64.
+- **Uninstall** with `sudo make uninstall` from the source directory, or
+  remove the paths listed above.
 
 ## Cleaning up the build dependencies
 
